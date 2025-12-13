@@ -1,0 +1,18 @@
+# Airflow artifacts
+logs/
+__pycache__/
+*.pyc
+
+# Local data (do not commit large CSVs)
+data/
+!data/.gitkeep
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Env
+.env
+archive_unused/
