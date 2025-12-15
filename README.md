@@ -12,6 +12,9 @@ The pipeline is orchestrated using Apache Airflow, which manages task dependenci
 
 Pipeline Description
 
+<img width="1792" height="992" alt="image" src="https://github.com/user-attachments/assets/2dff522b-bc18-487d-976f-d40969105150" />
+
+
 The pipeline is composed of two Airflow DAGs. The first DAG, cms_inpatient_download_unzip, is responsible for data ingestion and staging. It downloads the CMS inpatient claims ZIP file from the CMS website, validates the integrity of the download, extracts the compressed contents, and stages the resulting CSV files within the Airflow container volume for downstream processing.
 
 The second DAG, patient_claims_plus_postgres, handles loading, transformation, and validation of the data within PostgreSQL. It begins by dropping the final output table if it already exists to support idempotent execution. The DAG then creates raw staging tables for inpatient claims and beneficiary data, loads selected columns from the staged CSV files, and performs row-count data quality checks to ensure successful ingestion. After validation, the claims and beneficiary datasets are joined on the patient identifier to produce a consolidated analytics table. A final data quality check confirms that the output table has been populated successfully.
